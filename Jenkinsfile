@@ -31,19 +31,35 @@ pipeline{
                }
            }
             //SonarQube analysis
-                   stage('SonarQube analysis') {
-                       steps {
-                           script {
-                               try {
-                                   def scannerHome = tool 'sonar-scanner';
-                                   withSonarQubeEnv('SonarQube') {
-                                       sh "${tool("sonar-scanner")}/bin/sonar-scanner"
-                                   }
-                               } catch (Error|Exception e){
-                                   echo "failed but we continue"
-                               }
-                           }
-                       }
-                   }
-    }
+//                    stage('SonarQube analysis') {
+//                        steps {
+//                            script {
+//                                try {
+//                                    def scannerHome = tool 'sonar-scanner';
+//                                    withSonarQubeEnv('SonarQube') {
+//                                        sh "${tool("sonar-scanner")}/bin/sonar-scanner"
+//                                    }
+//                                } catch (Error|Exception e){
+//                                    echo "failed but we continue"
+//                                }
+//                            }
+//                        }
+//                    }
+        
+         stage("build & SonarQube analysis") {
+            steps {
+              withSonarQubeEnv('My SonarQube Server') {
+                sh 'mvn clean package sonar:sonar'
+              }
+            }
+          }
+          stage("Quality Gate") {
+            steps {
+              timeout(time: 1, unit: 'HOURS') {
+                waitForQualityGate abortPipeline: true
+              }
+            }
+          }
+        
+   }
 }
