@@ -3,12 +3,14 @@ pipeline{
     stages{
        stage('checkout'){
            steps{
-                  checkout scmGit(branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/martwebber/jenkins-pipeline-with-security-integration-springboot.git']])
+           echo 'checkout'
+                  //checkout scmGit(branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/martwebber/jenkins-pipeline-with-security-integration-springboot.git']])
                 }
            }
            stage('build'){
                steps{
-                sh 'mvn clean install'
+               echo 'build'
+                //sh 'mvn clean install'
                }
            }
            stage('test'){
