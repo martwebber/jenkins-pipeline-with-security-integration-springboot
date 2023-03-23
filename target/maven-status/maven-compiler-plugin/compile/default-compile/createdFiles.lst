@@ -1,0 +1,6 @@
+com/example/demo/DemoApplication.class
+com/example/demo/repositories/BookRepository.class
+com/example/demo/entities/Book.class
+com/example/demo/dtos/CreateBookRequest.class
+com/example/demo/services/BookService.class
+com/example/demo/controllers/BookController.class
